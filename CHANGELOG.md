@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.1.0
+
+### Minor Changes
+
+- fe4aa9b: export out the types
+
 ## 0.0.3
 
 ### Patch Changes
