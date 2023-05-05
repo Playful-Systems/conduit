@@ -1,26 +1,26 @@
 import * as R from "ramda";
 import { catcher } from "./catcher";
 
-type ConduitRequest = {
+export type ConduitRequest = {
   baseURL?: string;
   headers?: Record<string, string>;
   params?: Record<string, string | number | boolean>;
   body?: object;
 };
 
-type ConduitResponse = {
+export type ConduitResponse = {
   data: object;
   headers: Headers;
 };
 
-type BaseConduitRequest = {
+export type BaseConduitRequest = {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   url: string;
   body?: object;
   headers?: Record<string, string>;
 };
 
-type ConduitConfig = ConduitRequest & {
+export type ConduitConfig = ConduitRequest & {
   onRequest?: <Request extends ConduitRequest & BaseConduitRequest>(
     request: Request,
   ) => Request | Promise<Request>;
