@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.0.3
+
+### Patch Changes
+
+- cda461d: need to tell changeset that it is public
+
 ## 0.0.2
 
 ### Patch Changes
