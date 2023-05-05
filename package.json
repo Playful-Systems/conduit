@@ -7,6 +7,9 @@
     "typecheck": "tsc",
     "release": "tsc && changeset publish"
   },
+  "files": [
+    "src"
+  ],
   "packageManager": "pnpm@8.2.0",
   "dependencies": {
     "ramda": "^0.29.0"
