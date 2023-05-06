@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.2.0
+
+### Minor Changes
+
+- 41d1dfc: Enough types to kill a man
+
 ## 0.1.0
 
 ### Minor Changes
