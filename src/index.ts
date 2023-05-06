@@ -1,37 +1,37 @@
 import * as R from "ramda";
 import { catcher } from "./catcher";
 
-export type ConduitRequest = {
+export type ConduitRequest<RequestBody extends object = object> = {
   baseURL?: string;
   headers?: Record<string, string>;
   params?: Record<string, string | number | boolean>;
-  body?: object;
+  body?: RequestBody;
 };
 
-export type ConduitResponse = {
-  data: object;
+export type ConduitResponse<ResponseBody extends object = object> = {
+  data: ResponseBody;
   headers: Headers;
 };
 
-export type BaseConduitRequest = {
+export type BaseConduitRequest<RequestBody extends object = object> = {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   url: string;
-  body?: object;
+  body?: RequestBody;
   headers?: Record<string, string>;
 };
 
 export type ConduitConfig = ConduitRequest & {
-  onRequest?: <Request extends ConduitRequest & BaseConduitRequest>(
+  onRequest?: <RequestBody extends object = object, Request extends ConduitRequest<RequestBody> & BaseConduitRequest<RequestBody> = ConduitRequest<RequestBody> & BaseConduitRequest<RequestBody>>(
     request: Request,
   ) => Request | Promise<Request>;
-  onResponse?: <Response extends ConduitResponse>(
+  onResponse?: <ResponseBody extends object = object, Response extends ConduitResponse<ResponseBody> = ConduitResponse<ResponseBody>>(
     response: Response,
   ) => Response | Promise<Response>;
 };
 
 export const Conduit = {
   create: (config: ConduitConfig) => {
-    const request = async (options: BaseConduitRequest) => {
+    const request = async <ResponseBody extends object = object, RequestBody extends object = object>(options: BaseConduitRequest<RequestBody>): Promise<ConduitResponse<ResponseBody>> => {
       const mergedConfig = R.mergeDeepRight(config, options);
       const requestConfig = await (config.onRequest
         ? config.onRequest(mergedConfig)
@@ -104,7 +104,7 @@ export const Conduit = {
       const result = {
         data: responseData,
         headers: responseHeaders,
-      };
+      } as ConduitResponse<ResponseBody>;
 
       if (config.onResponse) {
         return config.onResponse(result);
@@ -114,39 +114,39 @@ export const Conduit = {
     };
 
     return {
-      get: async (url: string, config?: ConduitRequest) => {
-        return request({
+      get: async <ResponseBody extends object = object>(url: string, config?: ConduitRequest) => {
+        return request<ResponseBody>({
           url,
           method: "GET",
           ...config,
         });
       },
-      post: async (url: string, body?: object, config?: ConduitRequest) => {
-        return request({
+      post: async <ResponseBody extends object = object, RequestBody extends object = object>(url: string, body?: RequestBody, config?: ConduitRequest<RequestBody>) => {
+        return request<ResponseBody, RequestBody>({
           url,
           method: "POST",
           body,
           ...config,
         });
       },
-      put: async (url: string, body?: object, config?: ConduitRequest) => {
-        return request({
+      put: async <ResponseBody extends object = object, RequestBody extends object = object>(url: string, body?: RequestBody, config?: ConduitRequest<RequestBody>) => {
+        return request<ResponseBody, RequestBody>({
           url,
           method: "PUT",
           body,
           ...config,
         });
       },
-      patch: async (url: string, body?: object, config?: ConduitRequest) => {
-        return request({
+      patch: async <ResponseBody extends object = object, RequestBody extends object = object>(url: string, body?: RequestBody, config?: ConduitRequest<RequestBody>) => {
+        return request<ResponseBody, RequestBody>({
           url,
           method: "PATCH",
           body,
           ...config,
         });
       },
-      delete: async (url: string, config?: ConduitRequest) => {
-        return request({
+      delete: async <ResponseBody extends object = object>(url: string, config?: ConduitRequest) => {
+        return request<ResponseBody>({
           url,
           method: "DELETE",
           ...config,
