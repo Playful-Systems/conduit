@@ -37,7 +37,7 @@ export const Conduit = {
         ? config.onRequest(mergedConfig)
         : mergedConfig);
 
-      const endpoint = new URL(requestConfig.url, requestConfig.baseURL);
+      const endpoint = new URL(requestConfig.baseURL + requestConfig.url, requestConfig.baseURL);
 
       const params = requestConfig.params;
 
