@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.4.1
+
+### Patch Changes
+
+- ace5c7d: just copy over the axios code (imports where broken)
+
 ## 0.4.0
 
 ### Minor Changes
