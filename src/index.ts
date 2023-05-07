@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import buildFullPath from "axios/lib/core/buildFullPath";
+import { buildFullPath } from "./axios";
 import { catcher } from "./catcher";
 
 export type ConduitRequest<RequestBody extends object = object> = {
