@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.4.0
+
+### Minor Changes
+
+- 5a190fe: Use the axios function for combining the baseurl and the requested url
+
 ## 0.3.0
 
 ### Minor Changes
