@@ -40,7 +40,7 @@ export const Conduit = {
 
       const endpoint = new URL(
         buildFullPath(
-          requestConfig.baseURL ?? window.location.href,
+          requestConfig.baseURL ?? window.location.origin,
           requestConfig.url
         )
       );
