@@ -1,4 +1,5 @@
 import * as R from "ramda";
+import buildFullPath from "axios/lib/core/buildFullPath";
 import { catcher } from "./catcher";
 
 export type ConduitRequest<RequestBody extends object = object> = {
@@ -37,7 +38,12 @@ export const Conduit = {
         ? config.onRequest(mergedConfig)
         : mergedConfig);
 
-      const endpoint = new URL(requestConfig.baseURL + requestConfig.url, requestConfig.baseURL);
+      const endpoint = new URL(
+        buildFullPath(
+          requestConfig.baseURL ?? window.location.href,
+          requestConfig.url
+        )
+      );
 
       const params = requestConfig.params;
 
