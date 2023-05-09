@@ -32,8 +32,11 @@ export type ConduitConfig = ConduitRequest & {
 
 export const Conduit = {
   create: (config: ConduitConfig) => {
+
+    const mergeConfig = R.mergeDeepRight(config);
+
     const request = async <ResponseBody extends object = object, RequestBody extends object = object>(options: BaseConduitRequest<RequestBody>): Promise<ConduitResponse<ResponseBody>> => {
-      const mergedConfig = R.mergeDeepRight(config, options);
+      const mergedConfig = mergeConfig(options);
       const requestConfig = await (config.onRequest
         ? config.onRequest(mergedConfig)
         : mergedConfig);
@@ -66,6 +69,7 @@ export const Conduit = {
       const response = await fetch(endpoint, fetchOptions);
 
       if (!response.ok) {
+        console.error(`(Conduit) [${response.status}] Fetch failed: ${await response.text()}`)
         throw new Error(
           `(Conduit) [${response.status}] Fetch failed: ${response.statusText}`,
         );
