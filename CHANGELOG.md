@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.5.1
+
+### Patch Changes
+
+- 3fa7de5: log the http error
+
 ## 0.5.0
 
 ### Minor Changes
