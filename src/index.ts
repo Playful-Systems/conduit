@@ -21,25 +21,27 @@ export type BaseConduitRequest<RequestBody extends object = object> = {
   headers?: Record<string, string>;
 };
 
-export type ConduitConfig = ConduitRequest & {
+export type ConduitConfig<GlobalResponseBody extends object = object> = ConduitRequest & {
   onRequest?: <RequestBody extends object = object, Request extends ConduitRequest<RequestBody> & BaseConduitRequest<RequestBody> = ConduitRequest<RequestBody> & BaseConduitRequest<RequestBody>>(
     request: Request,
   ) => Request | Promise<Request>;
-  onResponse?: <ResponseBody extends object = object, Response extends ConduitResponse<ResponseBody> = ConduitResponse<ResponseBody>>(
+  onResponse?: <ResponseBody extends object = object, Response extends ConduitResponse<GlobalResponseBody & ResponseBody> = ConduitResponse<GlobalResponseBody & ResponseBody>>(
     response: Response,
   ) => Response | Promise<Response>;
 };
 
 export const Conduit = {
-  create: (config: ConduitConfig) => {
+  create: <GlobalResponseBody extends object = object>({
+    onRequest = (request) => request,
+    onResponse = (response) => response,
+    ...restOfConfig
+  }: ConduitConfig<GlobalResponseBody>) => {
 
-    const mergeConfig = R.mergeDeepRight(config);
+    const mergeConfig = R.mergeDeepRight(restOfConfig);
 
-    const request = async <ResponseBody extends object = object, RequestBody extends object = object>(options: BaseConduitRequest<RequestBody>): Promise<ConduitResponse<ResponseBody>> => {
+    const request = async <ResponseBody extends object = object, RequestBody extends object = object>(options: BaseConduitRequest<RequestBody>): Promise<ConduitResponse<GlobalResponseBody & ResponseBody>> => {
       const mergedConfig = mergeConfig(options);
-      const requestConfig = await (config.onRequest
-        ? config.onRequest(mergedConfig)
-        : mergedConfig);
+      const requestConfig = await onRequest(mergedConfig);
 
       const endpoint = new URL(
         buildFullPath(
@@ -48,7 +50,7 @@ export const Conduit = {
         )
       );
 
-      const params = requestConfig.params;
+      const { params } = requestConfig;
 
       if (params) {
         Object.keys(params).forEach((key) =>
@@ -97,8 +99,7 @@ export const Conduit = {
 
       if (typeof responseData !== "object") {
         throw new Error(
-          `(Conduit) [${
-            response.status
+          `(Conduit) [${response.status
           }] Fetch failed: Invalid response data. Expected object, got ${typeof responseData}`,
         );
       }
@@ -114,13 +115,9 @@ export const Conduit = {
       const result = {
         data: responseData,
         headers: responseHeaders,
-      } as ConduitResponse<ResponseBody>;
+      } as ConduitResponse<GlobalResponseBody & ResponseBody>;
 
-      if (config.onResponse) {
-        return config.onResponse(result);
-      }
-
-      return result;
+      return await onResponse(result);
     };
 
     return {
