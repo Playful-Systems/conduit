@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.5.2
+
+### Patch Changes
+
+- e1dca58: Add support to type the return from the onResponse function
+
 ## 0.5.1
 
 ### Patch Changes
