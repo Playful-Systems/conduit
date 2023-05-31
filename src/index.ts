@@ -73,7 +73,7 @@ export const Conduit = {
       if (!response.ok) {
         console.error(`(Conduit) [${response.status}] Fetch failed: ${await response.text()}`)
         throw new Error(
-          `(Conduit) [${response.status}] Fetch failed: ${response.statusText}`,
+          `(Conduit) [${response.status}] [${endpoint}] Fetch failed: ${response.statusText}`,
         );
       }
 
@@ -81,13 +81,13 @@ export const Conduit = {
 
       if (!contentType) {
         throw new Error(
-          `(Conduit) [${response.status}] Fetch failed: Missing content type`,
+          `(Conduit) [${response.status}] [${endpoint}] Fetch failed: Missing content type`,
         );
       }
 
       if (!contentType.includes("application/json")) {
         throw new Error(
-          `(Conduit) [${response.status}] Fetch failed: Invalid content type. Expected application/json, got ${contentType}`,
+          `(Conduit) [${response.status}] [${endpoint}] Fetch failed: Invalid content type. Expected application/json, got ${contentType}`,
         );
       }
 
@@ -99,14 +99,13 @@ export const Conduit = {
 
       if (typeof responseData !== "object") {
         throw new Error(
-          `(Conduit) [${response.status
-          }] Fetch failed: Invalid response data. Expected object, got ${typeof responseData}`,
+          `(Conduit) [${response.status}] [${endpoint}] Fetch failed: Invalid response data. Expected object, got ${typeof responseData}`,
         );
       }
 
       if (responseData === null) {
         throw new Error(
-          `(Conduit) [${response.status}] Fetch failed: Invalid response data. Expected object, got null`,
+          `(Conduit) [${response.status}] [${endpoint}] Fetch failed: Invalid response data. Expected object, got null`,
         );
       }
 
