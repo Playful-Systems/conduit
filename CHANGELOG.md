@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.5.3
+
+### Patch Changes
+
+- fcbfcd9: Add endpoint to error messages
+
 ## 0.5.2
 
 ### Patch Changes
