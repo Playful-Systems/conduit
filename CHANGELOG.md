@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.6.0
+
+### Minor Changes
+
+- 0ea6824: Use tsup to build the module
+
 ## 0.5.3
 
 ### Patch Changes
