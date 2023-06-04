@@ -2,6 +2,8 @@
 
 An axios like http client that uses fetch under the hood.
 
+[NPM Package](https://www.npmjs.com/package/@playful-systems/conduit)
+
 ## Instantiating
 
 ```ts
