@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.6.2
+
+### Patch Changes
+
+- a8b360c: The on response handler does not have the global response yet
+
 ## 0.6.1
 
 ### Patch Changes
