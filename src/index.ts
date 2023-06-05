@@ -65,7 +65,7 @@ export const Conduit = {
         method: requestConfig.method,
         headers: {
           "Content-Type": "application/json",
-          "Content-Length": requestConfig.body ? String(body.length) : "0",
+          "Content-Length": requestConfig.body ? String(Buffer.byteLength(body)) : "0",
           Accept: "application/json",
           ...requestConfig.headers,
         },
