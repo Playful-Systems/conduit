@@ -59,14 +59,17 @@ export const Conduit = {
         );
       }
 
+      const body = JSON.stringify(requestConfig.body)
+
       const fetchOptions: RequestInit = {
         method: requestConfig.method,
         headers: {
           "Content-Type": "application/json",
+          "Content-Length": requestConfig.body ? String(body.length) : "0",
           Accept: "application/json",
           ...requestConfig.headers,
         },
-        body: JSON.stringify(requestConfig.body),
+        body,
       };
 
       const response = await fetch(endpoint, fetchOptions);
