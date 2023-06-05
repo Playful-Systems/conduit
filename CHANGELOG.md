@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.8.0
+
+### Minor Changes
+
+- 8795f2a: add debug option
+
 ## 0.7.1
 
 ### Patch Changes
