@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.7.0
+
+### Minor Changes
+
+- bbde186: Add in the content length header
+
 ## 0.6.3
 
 ### Patch Changes
