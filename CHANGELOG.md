@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.6.1
+
+### Patch Changes
+
+- ef0d749: Need to update the package.json to include the dist
+
 ## 0.6.0
 
 ### Minor Changes
