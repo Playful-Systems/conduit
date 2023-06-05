@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.6.3
+
+### Patch Changes
+
+- 4f0f76e: ts is a bit funky, we just want to ensure the response gets transformed
+
 ## 0.6.2
 
 ### Patch Changes
