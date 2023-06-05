@@ -7,6 +7,7 @@ export type ConduitRequest<RequestBody extends object = object> = {
   headers?: Record<string, string>;
   params?: Record<string, string | number | boolean>;
   body?: RequestBody;
+  debug?: boolean;
 };
 
 export type ConduitResponse<ResponseBody extends object = object> = {
@@ -51,6 +52,8 @@ export const Conduit = {
         )
       );
 
+      log(requestConfig.debug, endpoint, 'Request configuration:', requestConfig);
+
       const { params } = requestConfig;
 
       if (params) {
@@ -65,14 +68,17 @@ export const Conduit = {
         method: requestConfig.method,
         headers: {
           "Content-Type": "application/json",
-          "Content-Length": requestConfig.body ? String(Buffer.byteLength(body)) : "0",
           Accept: "application/json",
           ...requestConfig.headers,
         },
         body,
       };
 
+      log(requestConfig.debug, endpoint, 'Fetch options:', fetchOptions);
+
       const response = await fetch(endpoint, fetchOptions);
+
+      log(requestConfig.debug, endpoint, 'Fetch response:', response);
 
       if (!response.ok) {
         console.error(`(Conduit) [${response.status}] Fetch failed: ${await response.text()}`)
@@ -119,6 +125,8 @@ export const Conduit = {
         data: responseData,
         headers: responseHeaders,
       } as ConduitResponse<GlobalResponseBody & ResponseBody>;
+
+      log(requestConfig.debug, endpoint, 'Response result before transformation:', result);
 
       return await onResponse(result);
     };
@@ -167,3 +175,9 @@ export const Conduit = {
 };
 
 export type ConduitInstance = ReturnType<typeof Conduit.create>;
+
+function log(enabled: boolean = false, endpoint: URL, ...message: any[]) {
+  if (enabled) {
+    console.log("(Conduit)", `[${endpoint}]`, ...message);
+  }
+}
