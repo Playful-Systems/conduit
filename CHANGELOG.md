@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.7.1
+
+### Patch Changes
+
+- 32134be: bytelength is a better method to get the content length
+
 ## 0.7.0
 
 ### Minor Changes
