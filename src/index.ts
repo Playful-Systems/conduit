@@ -25,14 +25,15 @@ export type ConduitConfig<GlobalResponseBody extends object = object> = ConduitR
   onRequest?: <RequestBody extends object = object, Request extends ConduitRequest<RequestBody> & BaseConduitRequest<RequestBody> = ConduitRequest<RequestBody> & BaseConduitRequest<RequestBody>>(
     request: Request,
   ) => Request | Promise<Request>;
-  onResponse?: <ResponseBody extends object = object, Response extends ConduitResponse<ResponseBody> = ConduitResponse<ResponseBody>>(
-    response: Response,
-  ) => Response | Promise<Response>;
+  onResponse?: <ResponseBody extends object = object, TransformedResponse extends ConduitResponse<GlobalResponseBody & ResponseBody> = ConduitResponse<GlobalResponseBody & ResponseBody>>(
+    response: ConduitResponse<ResponseBody>,
+  ) => TransformedResponse | Promise<TransformedResponse>;
 };
 
 export const Conduit = {
   create: <GlobalResponseBody extends object = object>({
     onRequest = (request) => request,
+    // @ts-ignore
     onResponse = (response) => response,
     ...restOfConfig
   }: ConduitConfig<GlobalResponseBody>) => {
