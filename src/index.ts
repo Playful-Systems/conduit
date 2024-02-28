@@ -81,7 +81,7 @@ export const Conduit = {
       log(requestConfig.debug, endpoint, 'Fetch response:', response);
 
       if (!response.ok) {
-        console.error(`(Conduit) [${response.status}] Fetch failed: ${await response.text()}`)
+        console.error(`(Conduit) [${response.status}] [${endpoint}] Fetch failed: ${await response.text()}`)
         throw new Error(
           `(Conduit) [${response.status}] [${endpoint}] Fetch failed: ${response.statusText}`,
         );

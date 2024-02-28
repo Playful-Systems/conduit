@@ -11,9 +11,6 @@ import { Conduit } from '@packages/conduit';
 
 const conduit = Conduit.create({
   baseURL: 'https://jsonplaceholder.typicode.com',
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 ```
 
