@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.9.0
+
+### Minor Changes
+
+- e5a5a0d: Update dependencies
+
 ## 0.8.0
 
 ### Minor Changes
