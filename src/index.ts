@@ -8,6 +8,7 @@ export type ConduitRequest<RequestBody extends object = object> = {
   params?: Record<string, string | number | boolean>;
   body?: RequestBody;
   debug?: boolean;
+  customFetch?: typeof fetch;
 };
 
 export type ConduitResponse<ResponseBody extends object = object> = {
@@ -36,6 +37,7 @@ export const Conduit = {
     onRequest = (request) => request,
     // @ts-ignore
     onResponse = (response) => response,
+    customFetch = fetch,
     ...restOfConfig
   }: ConduitConfig<GlobalResponseBody>) => {
 
@@ -76,7 +78,7 @@ export const Conduit = {
 
       log(requestConfig.debug, endpoint, 'Fetch options:', fetchOptions);
 
-      const response = await fetch(endpoint, fetchOptions);
+      const response = await customFetch(endpoint, fetchOptions);
 
       log(requestConfig.debug, endpoint, 'Fetch response:', response);
 
