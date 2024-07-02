@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.10.0
+
+### Minor Changes
+
+- ba01764: Allow api consumer to overwrite fetch client
+
 ## 0.9.0
 
 ### Minor Changes
