@@ -21,6 +21,7 @@ Conduit supports all the popular request methods.
 ### GET
 ```ts
 const response = await conduit.get('/posts');
+const posts = response.data;
 ```
 
 ### POST
@@ -30,11 +31,12 @@ const response = await conduit.post('/posts', {
   body: 'bar',
   userId: 1,
 });
+const post = response.data;
 ```
 
 ### PUT
 ```ts
-const response = await conduit.put('/posts/1', {
+const response = await conduit.put('/post', {
   id: 1,
   title: 'foo',
   body: 'bar',
@@ -44,12 +46,15 @@ const response = await conduit.put('/posts/1', {
 
 ### PATCH
 ```ts
-const response = await conduit.patch('/posts/1', {
+const response = await conduit.patch('/post', {
+  id: 1,
   title: 'foo',
 });
 ```
 
 ### DELETE
 ```ts
-const response = await conduit.delete('/posts/1');
+const response = await conduit.delete('/post', {
+  id: 1,
+});
 ```

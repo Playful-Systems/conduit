@@ -165,9 +165,10 @@ export const Conduit = {
           ...config,
         });
       },
-      delete: async <ResponseBody extends object = object>(url: string, config?: ConduitRequest) => {
-        return request<ResponseBody>({
+      delete: async <ResponseBody extends object = object, RequestBody extends object = object>(url: string, body?: RequestBody, config?: ConduitRequest<RequestBody>) => {
+        return request<ResponseBody, RequestBody>({
           url,
+          body,
           method: "DELETE",
           ...config,
         });
