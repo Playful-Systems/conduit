@@ -1,5 +1,11 @@
 # @playful-systems/conduit
 
+## 0.11.0
+
+### Minor Changes
+
+- c671a0a: Add body to delete requests
+
 ## 0.10.0
 
 ### Minor Changes
